@@ -1,59 +1,55 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <title>TO-DO list</title>
-    <link rel="stylesheet" href="styles.css" />
-  </head>
-  <body>
-    <div id="todo-container">
-      <div id="header">
-        <h1>
-          <button id="today-btn">Today</button></h1>
-      </div>
 
-      <div id="todo-form">
-        <input 
-        type="text"
-        class="input-item"
-        name="input-box"
-        id="input-box"
-        placeholder="Add Task"
-        readonly
-    />
-    <div class="calendar" id="calendar"></div>
-    <div id="task-modal" class="modal">
-        <label for="task-text"></label>
-        <input type="text" id="task-text">
-        
-        <label for="task-type">Type</label>
+<head>
+  <meta charset="UTF-8" />
+  <title>TO-DO list</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+
+<body>
+  <div id="todo-container">
+    <div id="header">
+      <h1>
+        <button id="today-btn">Today</button>
+      </h1>
+      <div id="selected-date"></div>
+    </div>
+
+    <div id="todo-form">
+      <input type="text" class="input-item" id="input-box" placeholder="Add Task" readonly />
+
+      <div class="calendar" id="calendar"></div>
+
+      <div id="task-modal" class="modal">
+        <input type="text" id="task-text" placeholder="Enter task" />
+
         <select id="task-type">
-            <option value="task">Task</option>
-            <option value="habit">Habit</option>
-            
+          <option value="task">Task</option>
+          <option value="habit">Habit</option>
         </select>
-        
-       
-        
+
         <button id="input-button">Add</button>
         <button id="close-button" onclick="closeModal()">Close</button>
-
-    </div>
-
-    <ul id="list-container"></li></ul>
-    
-    <hr />
-    <div id = "counter-container">
-      <div class="counter-container">
-        Today you have <span id="completed-counter">0</span> tasks  
       </div>
-<div id="closing-container">
-  <button id="clean-allBtn">Clean All</button>
-</div>
 
+      <ul id="list-container"></ul>
+
+      <hr />
+
+      <div id="counter-container">
+        <div class="counter-container">
+          Today you have <span id="completed-counter">0</span> tasks
+        </div>
+        <div id="closing-container">
+          <button id="clean-allBtn">Clean All</button>
+        </div>
+      </div>
     </div>
-    <script src="calendar.js"></script>
-    <script src="./script.js"></script>
-   
-  </body>
+  </div>
+
+  <script src="calendar.js"></script>
+  <script src="script.js"></script>
+</body>
+
 </html>
