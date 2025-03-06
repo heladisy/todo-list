@@ -46,4 +46,47 @@ body {
     display: block;
 }
 
+.calendar {
+    display: flex;
+    gap: 20px;
+    margin-bottom: 30px;
+}
 
+.day {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    border: 2px solid #333;
+    cursor: pointer;
+}
+
+.day.active {
+    background-color: #333;
+    color: #fff;
+}
+
+.weekday,
+.date {
+    margin: 0;
+}
+
+#todo-list {
+    border: 1px solid #333;
+    padding: 20px;
+    width: 300px;
+}
+
+#today-button {
+    margin-bottom: 20px;
+    padding: 10px 20px;
+    font-size: 1em;
+    cursor: pointer;
+    background-color: #333;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+}
