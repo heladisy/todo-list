@@ -23,7 +23,6 @@
 
       <div id="task-modal" class="modal">
         <input type="text" id="task-text" placeholder="Enter task" />
-
         <select id="task-type">
           <option value="task">Task</option>
           <option value="habit">Habit</option>
@@ -31,6 +30,11 @@
 
         <button id="input-button">Add</button>
         <button id="close-button" onclick="closeModal()">Close</button>
+      </div>
+
+      <div id="task-edit" class="modal-edit">
+        <input type="text" id="task-textedit" placeholder="Edit your task" />
+        <button id="save-btn">Save</button>
       </div>
 
       <ul id="list-container"></ul>
