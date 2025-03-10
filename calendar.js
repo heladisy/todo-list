@@ -46,11 +46,6 @@ function updateSelectedDate(date) {
 function updateTasks() {
   tasks.innerHTML =
     currentDate.getDate() === new Date().getDate()
-      ? `
-        <li>Приклад справи 1</li>
-        <li>Приклад справи 2</li>
-      `
-      : "<li>Немає завдань на цей день</li>";
   updateSelectedDate(currentDate);
 }
 
