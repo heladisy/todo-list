@@ -130,22 +130,7 @@ const editModal = document.getElementById("task-edit");
 
 inputBox.addEventListener("focus", () => taskModal.classList.add("active"));
 
-document.addEventListener("click", (event) => {
-  if (
-    taskModal.classList.contains("active") &&
-    !taskModal.contains(event.target) &&
-    event.target !== inputBox
-  ) {
-    closeAddModal();
-  }
 
-  if (
-    editModal.classList.contains("active") &&
-    !editModal.contains(event.target)
-  ) {
-    closeEditModal();
-  }
-});
 
 document.getElementById("input-button").addEventListener("click", () => {
   const taskText = document.getElementById("task-text").value.trim();
