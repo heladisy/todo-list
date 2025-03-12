@@ -134,7 +134,6 @@ const taskType = document.getElementById("task-type");
 
 inputBox.addEventListener("focus", () => taskModal.classList.add("active"));
 
-
 document.getElementById("input-button").addEventListener("click", () => {
   const text = taskText.value.trim();
   const type = taskType.value;
@@ -155,7 +154,7 @@ document
 function closeAddModal() {
   taskModal.classList.remove("active");
   taskText.value = "";
-  taskType.value = "task"; 
+  taskType.value = "task";
   taskModal.classList.remove("active");
 }
 
