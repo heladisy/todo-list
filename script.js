@@ -23,7 +23,7 @@ class Task {
     if (this.completed) taskTextElement.classList.add("done");
 
     const editBtn = this.createButton("edit", () =>
-      TaskManager.editTask(this, taskItem)
+      TaskManager.editTask(this, taskTextElement)
     );
     const deleteBtn = this.createButton("delete", () =>
       TaskManager.removeTask(this, taskItem)
@@ -98,6 +98,7 @@ const TaskManager = {
   editTask(task, taskElement) {
     task.openEditModal(taskElement);
   },
+
   removeTask(task, taskElement) {
     const dateStr = task.date.toDateString();
     const tasks = this.tasks.get(dateStr);
@@ -107,6 +108,7 @@ const TaskManager = {
     }
     taskElement.remove();
   },
+
   renderTasks(date) {
     const listContainer = document.getElementById("list-container");
     listContainer.innerHTML = "";
@@ -127,19 +129,24 @@ const TaskManager = {
 const inputBox = document.getElementById("input-box");
 const taskModal = document.getElementById("task-modal");
 const editModal = document.getElementById("task-edit");
+const taskText = document.getElementById("task-text");
+const taskType = document.getElementById("task-type");
 
 inputBox.addEventListener("focus", () => taskModal.classList.add("active"));
 
 
-
 document.getElementById("input-button").addEventListener("click", () => {
-  const taskText = document.getElementById("task-text").value.trim();
-  const taskType = document.getElementById("task-type").value;
-  if (!taskText) return alert("Add the task!");
+  const text = taskText.value.trim();
+  const type = taskType.value;
+  if (!text) return alert("Add the task!");
 
-  TaskManager.addTask(new Task(taskText, taskType, currentDate));
+  TaskManager.addTask(new Task(text, type, new Date()));
   closeAddModal();
 });
+
+document
+  .getElementById("close-button")
+  .addEventListener("click", closeAddModal);
 
 document
   .getElementById("clean-allBtn")
@@ -147,7 +154,11 @@ document
 
 function closeAddModal() {
   taskModal.classList.remove("active");
+  taskText.value = "";
+  taskType.value = "task"; 
+  taskModal.classList.remove("active");
 }
+
 function closeEditModal() {
   editModal.classList.remove("active");
 }
