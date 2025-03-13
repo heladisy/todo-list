@@ -25,9 +25,10 @@ class Task {
     const editBtn = this.createButton("edit", () =>
       this.openEditModal(taskTextElement)
     );
-    const deleteBtn = this.createButton("delete", () =>
-      TaskManager.removeTask(this, taskItem)
-    );
+    const deleteBtn = this.createButton("delete", () => {
+      TaskManager.removeTask(this, taskItem);
+      taskManager.updateTaskCount(this.date);
+    });
 
     const typeIcon = document.createElement("span");
     typeIcon.textContent = this.type === "habit" ? "🌱" : "📌";
@@ -49,15 +50,31 @@ class Task {
 
     editInput.value = this.text;
     modal.classList.add("active");
+    editInput.focus();
 
     saveBtn.onclick = () => {
       const newText = editInput.value.trim();
-      if (newText) {
+      if (!newText) {
+        alert("Task text cannot be empty!");
+        return;
+      }
+      this.text = newText;
+      taskTextElement.textContent = newText;
+      closeEditModal();
+    };
+
+    editInput.addEventListener("keydown", (e) => {
+      if (e.key === "Enter") {
+        const newText = editInput.value.trim();
+        if (!newText) {
+          alert("Task text cannot be empty!");
+          return;
+        }
         this.text = newText;
         taskTextElement.textContent = newText;
         closeEditModal();
       }
-    };
+    });
   }
 
   createButton(type, handler) {
@@ -74,6 +91,7 @@ class TaskManager {
     this.tasksByDate = new Map();
     this.currentDate = new Date();
     this.listContainer = document.getElementById("list-container");
+    this.taskCounter = document.getElementById("completed-counter");
   }
 
   addTask(text, type, date) {
@@ -82,6 +100,7 @@ class TaskManager {
     if (!this.tasksByDate.has(dateStr)) this.tasksByDate.set(dateStr, []);
     this.tasksByDate.get(dateStr).push(task);
     this.renderTasks(date);
+    this.updateTaskCount(date);
   }
 
   static removeTask(task, taskElement) {
@@ -93,6 +112,7 @@ class TaskManager {
     }
     taskElement.remove();
     taskManager.renderTasks(task.date);
+    taskManager.updateTaskCount(task.date);
   }
 
   renderTasks(date) {
@@ -102,6 +122,13 @@ class TaskManager {
     tasks.forEach((task) =>
       this.listContainer.appendChild(task.createTaskElement())
     );
+    this.updateTaskCount(date);
+  }
+
+  updateTaskCount(date) {
+    const dateStr = date.toDateString();
+    const tasks = this.tasksByDate.get(dateStr) || [];
+    this.taskCounter.textContent = tasks.length;
   }
 
   clearTasksForDate(date) {
@@ -109,6 +136,7 @@ class TaskManager {
     if (confirm("Are you sure you want to delete all tasks for this day?")) {
       this.tasksByDate.delete(dateStr);
       this.renderTasks(date);
+      this.updateTaskCount(date);
     }
   }
 }
@@ -122,23 +150,41 @@ const editModal = document.getElementById("task-edit");
 const taskText = document.getElementById("task-text");
 const taskType = document.getElementById("task-type");
 
-inputBox.addEventListener("focus", () => taskModal.classList.add("active"));
+inputBox.addEventListener("focus", () => {
+  taskModal.classList.add("active");
+  taskText.focus();
+});
 
 document.getElementById("input-button").addEventListener("click", () => {
   const text = taskText.value.trim();
   const type = taskType.value;
-  if (!text) return alert("Add the task!");
+  if (!text) {
+    alert("Add the task!");
+    return;
+  }
   taskManager.addTask(text, type, calendar.currentDate);
-  closeAddModal();
+  taskManager.updateTaskCount(calendar.currentDate);
+  taskModal.classList.remove("active");
+  taskText.value = "";
+});
+
+taskText.addEventListener("keydown", (e) => {
+  if (e.key === "Enter") {
+    const text = taskText.value.trim();
+    const type = taskType.value;
+    if (!text) {
+      alert("Add the task!");
+      return;
+    }
+    taskManager.addTask(text, type, calendar.currentDate);
+    taskManager.updateTaskCount(calendar.currentDate);
+    closeAddModal();
+  }
 });
 
 document.getElementById("clean-allBtn").addEventListener("click", () => {
   taskManager.clearTasksForDate(calendar.currentDate);
 });
-
-document
-  .getElementById("close-button")
-  .addEventListener("click", closeAddModal);
 
 function closeAddModal() {
   taskModal.classList.remove("active");
@@ -149,3 +195,7 @@ function closeAddModal() {
 function closeEditModal() {
   editModal.classList.remove("active");
 }
+
+document
+  .getElementById("close-button")
+  .addEventListener("click", closeAddModal);

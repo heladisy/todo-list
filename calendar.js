@@ -51,6 +51,7 @@ class Calendar {
     this.selectedDateElement.textContent = this.getFormattedDate(this.today); 
     this.renderCalendar();
     this.taskManager.renderTasks(this.currentDate);
+    this.taskManager.updateTaskCount(this.currentDate);
   }
 }
 
@@ -59,11 +60,9 @@ function updateTasks() {
   updateSelectedDate(currentDate);
 }
 
-document
-  .getElementById("today-btn")
-  .addEventListener("click", () => updateSelectedDate(new Date()));
-
-
+document.getElementById("today-btn").addEventListener("click", () => {
+  calendar.updateSelectedDate(new Date());
+});
 
 
   
