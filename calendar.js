@@ -44,8 +44,7 @@ function updateSelectedDate(date) {
 }
 
 function updateTasks() {
-  tasks.innerHTML =
-    currentDate.getDate() === new Date().getDate()
+  tasks.innerHTML = currentDate.getDate() === new Date().getDate();
   updateSelectedDate(currentDate);
 }
 
