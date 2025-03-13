@@ -1,53 +1,59 @@
-const calendar = document.getElementById("calendar");
-const selectedDateElement = document.getElementById("selected-date");
-const tasks = document.getElementById("tasks");
-let currentDate = new Date();
+class Calendar {
+  constructor(taskManager) {
+    this.taskManager = taskManager;
+    this.calendar = document.getElementById("calendar");
+    this.selectedDateElement = document.getElementById("selected-date");
+    this.currentDate = new Date();
+    this.today = new Date();
+    this.renderCalendar();
+    this.updateSelectedDate(this.today); 
+  }
 
-function getFormattedDate(date) {
-  return date.toLocaleDateString("en", {
-    day: "2-digit",
-    month: "long",
-    year: "numeric",
-  });
-}
+  getFormattedDate(date) {
+    return date.toLocaleDateString("en", {
+      day: "2-digit",
+      month: "long",
+      year: "numeric",
+    });
+  }
 
-function renderCalendar() {
-  calendar.innerHTML = "";
-  for (let i = -3; i <= 3; i++) {
-    const date = new Date(currentDate);
-    date.setDate(date.getDate() + i);
+  renderCalendar() {
+    if (!this.calendar) return;
+    this.calendar.innerHTML = "";
+    for (let i = -3; i <= 3; i++) {
+      const date = new Date(this.currentDate);
+      date.setDate(date.getDate() + i);
 
-    const dayElement = document.createElement("div");
-    dayElement.classList.add("day");
-    if (i === 0) dayElement.classList.add("active");
+      const dayElement = document.createElement("div");
+      dayElement.classList.add("day");
+      if (date.toDateString() === this.today.toDateString())
+        dayElement.classList.add("today");
+      if (i === 0) dayElement.classList.add("active");
 
-    const weekday = document.createElement("p");
-    weekday.classList.add("weekday");
-    weekday.textContent = date.toLocaleDateString("en", { weekday: "short" });
+      const weekday = document.createElement("p");
+      weekday.classList.add("weekday");
+      weekday.textContent = date.toLocaleDateString("en", { weekday: "short" });
 
-    const day = document.createElement("p");
-    day.classList.add("date");
-    day.textContent = date.getDate();
+      const day = document.createElement("p");
+      day.classList.add("date");
+      day.textContent = date.getDate();
 
-    dayElement.appendChild(weekday);
-    dayElement.appendChild(day);
-    dayElement.addEventListener("click", () => updateSelectedDate(date));
+      dayElement.appendChild(weekday);
+      dayElement.appendChild(day);
+      dayElement.addEventListener("click", () => this.updateSelectedDate(date));
 
-    calendar.appendChild(dayElement);
+      this.calendar.appendChild(dayElement);
+    }
+  }
+
+  updateSelectedDate(date) {
+    this.currentDate = new Date(date);
+    this.selectedDateElement.textContent = this.getFormattedDate(this.today); 
+    this.renderCalendar();
+    this.taskManager.renderTasks(this.currentDate);
   }
 }
-function updateSelectedDate(date) {
-  currentDate = new Date(date);
-  selectedDateElement.textContent = getFormattedDate(currentDate);
-  renderCalendar();
-  updateTasks();
-}
 
-function updateTasks() {
-  tasks.innerHTML = currentDate.getDate() === new Date().getDate();
-  updateSelectedDate(currentDate);
-}
-
-document
-  .getElementById("today-btn")
-  .addEventListener("click", () => updateSelectedDate(new Date()));
+document.getElementById("today-btn").addEventListener("click", () => {
+  calendar.updateSelectedDate(new Date());
+});

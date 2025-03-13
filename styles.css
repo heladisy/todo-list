@@ -150,13 +150,13 @@ body {
     justify-content: center;
     align-items: center;
 }
-/* 
+
 #task-modal {
     background: white;
     padding: 20px;
     border-radius: 10px;
     width: 300px;
-} */
+}
 
 #task-text {
     width: 100%;
