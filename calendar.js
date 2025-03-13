@@ -54,6 +54,16 @@ class Calendar {
   }
 }
 
-document.getElementById("today-btn").addEventListener("click", () => {
-  calendar.updateSelectedDate(new Date());
-});
+function updateTasks() {
+  tasks.innerHTML = currentDate.getDate() === new Date().getDate();
+  updateSelectedDate(currentDate);
+}
+
+document
+  .getElementById("today-btn")
+  .addEventListener("click", () => updateSelectedDate(new Date()));
+
+
+
+
+  
