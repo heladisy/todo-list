@@ -51,6 +51,7 @@ class Calendar {
     this.selectedDateElement.textContent = this.getFormattedDate(this.today); 
     this.renderCalendar();
     this.taskManager.renderTasks(this.currentDate);
+    this.taskManager.updateTaskCount(this.currentDate);
   }
 }
 
