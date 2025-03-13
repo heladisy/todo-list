@@ -59,11 +59,9 @@ function updateTasks() {
   updateSelectedDate(currentDate);
 }
 
-document
-  .getElementById("today-btn")
-  .addEventListener("click", () => updateSelectedDate(new Date()));
-
-
+document.getElementById("today-btn").addEventListener("click", () => {
+  calendar.updateSelectedDate(new Date());
+});
 
 
   
