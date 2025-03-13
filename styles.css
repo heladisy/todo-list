@@ -57,8 +57,8 @@ body {
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    width: 60px;
-    height: 60px;
+    width: 80px;
+    height: 80px;
     border-radius: 50%;
     border: 2px solid #333;
     cursor: pointer;
@@ -74,8 +74,7 @@ body {
     color: white;
 }
 
-.weekday,
-å .date {
+.weekday, .date {
     margin: 0;
 }
 
@@ -99,11 +98,11 @@ body {
 }
 
 .task-item.habit {
-    background-color: #e0f7fa;
+    background-color: #ECFFEE;
 }
 
 .task-item.task {
-    background-color: #fff3e0;
+    background-color: #F4F8FF;
 }
 
 .done {
@@ -119,67 +118,40 @@ body {
     padding: 5px;
 }
 
-.modal {
+.modal,.modal-edit {
     display: none;
     position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(0, 0, 0, 0.5);
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 70%;
+    height: 60%;
     justify-content: center;
     align-items: center;
-}
-
-.modal-edit {
-     display: none;
-     position: fixed;
-     top: 0;
-     left: 0;
-     width: 100%;
-     height: 100%;
-     background: rgba(0, 0, 0, 0.5);
-    justify-content: center;
-    align-items: center;
- }
-
-.modal-edit.active {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-    }
-
-.modal.active {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
-#task-modal {
-    background: white;
-    padding: 20px;
     border-radius: 10px;
-    width: 300px;
+    z-index: 1000;
+    background: rgba(182, 182, 182, 0.908);
 }
 
-#task-text {
-    width: 100%;
-    padding: 10px;
-    margin-bottom: 10px;
-    border: 1px solid #ddd;
-    border-radius: 5px;
+.modal.active,
+.modal-edit.active {
+    display: flex;
 }
 
-#task-type {
-    width: 100%;
+#task-text,
+#task-type,
+#task-textedit {
+    width: 90%;
+    max-width: 300px;
     padding: 10px;
-    margin-bottom: 10px;
-    border: 1px solid #ddd;
-    border-radius: 5px;
+    border-radius: 10px;
+    box-sizing: border-box;
+    margin: 5px;
 }
 
 #input-button,
-#close-button {
+#close-button,
+#save-btn {
     padding: 8px 15px;
     margin: 5px;
     border: none;
@@ -188,13 +160,18 @@ body {
 }
 
 #input-button {
-    background-color: #4caf50;
+    background-color:#333;
     color: white;
 }
 
 #close-button {
-    background-color: #f44336;
+    background-color: #2D7EFF;
     color: white;
+}
+
+#save-btn {
+     background-color: #333;
+     color: white;
 }
 
 #counter-container {
@@ -206,7 +183,7 @@ body {
 
 #clean-allBtn {
     padding: 8px 15px;
-    background-color: #ff5722;
+    background-color: #2D7EFF;
     color: white;
     border: none;
     border-radius: 5px;

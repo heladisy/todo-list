@@ -31,7 +31,7 @@ class Task {
     });
 
     const typeIcon = document.createElement("span");
-    typeIcon.textContent = this.type === "habit" ? "🌱" : "📌";
+    typeIcon.textContent = this.type === "habit" ? "🌱" : "📝";
 
     taskItem.append(
       taskCheckbox,
@@ -79,7 +79,7 @@ class Task {
 
   createButton(type, handler) {
     const btn = document.createElement("button");
-    btn.textContent = type === "edit" ? "✏️" : "❌";
+    btn.textContent = type === "edit" ? "🖋️" : "✖️";
     btn.classList.add(`${type}-btn`);
     btn.addEventListener("click", handler);
     return btn;
@@ -164,8 +164,7 @@ document.getElementById("input-button").addEventListener("click", () => {
   }
   taskManager.addTask(text, type, calendar.currentDate);
   taskManager.updateTaskCount(calendar.currentDate);
-  taskModal.classList.remove("active");
-  taskText.value = "";
+  closeAddModal();
 });
 
 taskText.addEventListener("keydown", (e) => {
